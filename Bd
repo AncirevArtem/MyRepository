@@ -1,0 +1,73 @@
+create table if not exists "user"
+(
+	id serial not null
+		constraint user_pkey
+			primary key,
+	id_in_bank integer,
+	first_name varchar(30),
+	surname varchar(30),
+	patronymic varchar(30),
+	age integer,
+	username varchar(30),
+	passwaord varchar(30),
+	link_to_the_vk varchar(60),
+	link_to_the_facebook varchar(60),
+	link_to_the_instagram varchar(60),
+	url_avatar varchar(60),
+	id_friend bigint
+		constraint user_id_friend_fkey
+			references "user",
+	phone varchar(30) not null
+		constraint user_phone_key
+			unique,
+	email varchar(30) not null
+		constraint user_email_key
+			unique
+)
+;
+
+create table if not exists type_social_role
+(
+	id serial not null
+		constraint type_social_role_pkey
+			primary key,
+	title varchar(30)
+)
+;
+
+create table if not exists referral_links
+(
+	id_invited integer not null
+		constraint referral_links_id_invited_fkey
+			references "user",
+	phone_referal varchar(20)
+		constraint referral_links_phone_referal_fkey
+			references "user" (phone),
+	email_referal varchar(20)
+		constraint referral_links_email_referal_fkey
+			references "user" (email)
+)
+;
+
+create table if not exists feedback
+(
+	id_questioner integer
+		constraint feedback_id_questioner_fkey
+			references "user",
+	id_answering integer,
+	question text,
+	answer text
+)
+;
+
+create table if not exists set_of_points
+(
+	id_user integer
+		constraint set_of_points_id_user_fkey
+			references "user",
+	for_invite bigint,
+	for_logon bigint,
+	for_viewing_ads bigint,
+	for_help bigint
+)
+;
