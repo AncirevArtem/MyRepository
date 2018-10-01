@@ -1,3 +1,12 @@
+create table if not exists type_social_role
+(
+	id serial not null
+		constraint type_social_role_pkey
+			primary key,
+	title varchar(30)
+)
+;
+
 create table if not exists "user"
 (
 	id serial not null
@@ -17,35 +26,11 @@ create table if not exists "user"
 	id_friend bigint
 		constraint user_id_friend_fkey
 			references "user",
-	phone varchar(30) not null
-		constraint user_phone_key
-			unique,
-	email varchar(30) not null
-		constraint user_email_key
-			unique
-)
-;
-
-create table if not exists type_social_role
-(
-	id serial not null
-		constraint type_social_role_pkey
-			primary key,
-	title varchar(30)
-)
-;
-
-create table if not exists referral_links
-(
-	id_invited integer not null
-		constraint referral_links_id_invited_fkey
-			references "user",
-	phone_referal varchar(20)
-		constraint referral_links_phone_referal_fkey
-			references "user" (phone),
-	email_referal varchar(20)
-		constraint referral_links_email_referal_fkey
-			references "user" (email)
+	email varchar(30),
+	phone varchar(30),
+	id_type_social_role integer
+		constraint user_id_type_social_role_fkey
+			references type_social_role
 )
 ;
 
@@ -71,3 +56,40 @@ create table if not exists set_of_points
 	for_help bigint
 )
 ;
+
+create table if not exists referral_links
+(
+	who_invite bigint
+		constraint referral_links_who_invite_fkey
+			references "user",
+	who_new bigint
+		constraint referral_links_who_new_fkey
+			references "user"
+)
+;
+
+create table if not exists type_card
+(
+	description varchar(300),
+	title varchar(30),
+	id_type_card serial not null
+		constraint type_card_pkey
+			primary key
+)
+;
+
+create table if not exists archive_cards
+(
+	requisites integer,
+	number_card integer,
+	id_user integer
+		constraint archive_cards_id_user_fkey
+			references "user",
+	type_card integer
+		constraint archive_cards_type_card_fkey
+			references type_card,
+	unique_word varchar(30)
+)
+;
+
+
