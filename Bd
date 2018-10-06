@@ -1,45 +1,35 @@
-create table if not exists type_social_role
-(
-	id serial not null
-		constraint type_social_role_pkey
-			primary key,
-	title varchar(30)
-)
-;
-
-create table if not exists "user"
+create table if not exists users
 (
 	id serial not null
 		constraint user_pkey
 			primary key,
-	id_in_bank integer,
+	user_bank_id integer,
 	first_name varchar(30),
-	surname varchar(30),
+	last_name varchar(30),
 	patronymic varchar(30),
 	age integer,
 	username varchar(30),
-	passwaord varchar(30),
-	link_to_the_vk varchar(60),
-	link_to_the_facebook varchar(60),
-	link_to_the_instagram varchar(60),
+	password varchar(30),
+	vk_link varchar(60),
+	facebook_link varchar(60),
+	instagram_link varchar(60),
 	url_avatar varchar(60),
 	id_friend bigint
 		constraint user_id_friend_fkey
-			references "user",
+			references users,
 	email varchar(30),
 	phone varchar(30),
-	id_type_social_role integer
-		constraint user_id_type_social_role_fkey
-			references type_social_role
+	social_role varchar(20),
+	bonus_kod varchar(30)
 )
 ;
 
 create table if not exists feedback
 (
-	id_questioner integer
+	questioner_id integer
 		constraint feedback_id_questioner_fkey
-			references "user",
-	id_answering integer,
+			references users,
+	answering_id integer,
 	question text,
 	answer text
 )
@@ -47,9 +37,9 @@ create table if not exists feedback
 
 create table if not exists set_of_points
 (
-	id_user integer
+	user_id integer
 		constraint set_of_points_id_user_fkey
-			references "user",
+			references users,
 	for_invite bigint,
 	for_logon bigint,
 	for_viewing_ads bigint,
@@ -61,35 +51,54 @@ create table if not exists referral_links
 (
 	who_invite bigint
 		constraint referral_links_who_invite_fkey
-			references "user",
+			references users,
 	who_new bigint
 		constraint referral_links_who_new_fkey
-			references "user"
-)
-;
-
-create table if not exists type_card
-(
-	description varchar(300),
-	title varchar(30),
-	id_type_card serial not null
-		constraint type_card_pkey
-			primary key
+			references users
 )
 ;
 
 create table if not exists archive_cards
 (
+	id serial not null
+		constraint archive_cards_pkey
+			primary key,
 	requisites integer,
 	number_card integer,
-	id_user integer
+	user_id integer
 		constraint archive_cards_id_user_fkey
-			references "user",
-	type_card integer
-		constraint archive_cards_type_card_fkey
-			references type_card,
+			references users,
+	type_cards_id integer,
 	unique_word varchar(30)
 )
 ;
 
+create table if not exists type_cards
+(
+	id serial not null
+		constraint type_cards_pkey
+			primary key,
+	description varchar(300),
+	title varchar(30)
+)
+;
 
+create table if not exists purchase_type
+(
+	id serial not null
+		constraint purchase_type_pkey
+			primary key,
+	title varchar(30)
+)
+;
+
+create table if not exists purchase_rule
+(
+	id serial not null
+		constraint purchase_rule_pkey
+			primary key,
+	type_cards_id integer,
+	purchase_type_id integer,
+	sale_percent integer
+)
+;
