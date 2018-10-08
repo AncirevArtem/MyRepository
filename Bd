@@ -78,7 +78,7 @@ create table if not exists type_cards
 	id serial not null
 		constraint type_cards_pkey
 			primary key,
-	description varchar(300),
+	description varchar(1000),
 	title varchar(30)
 )
 ;
@@ -88,7 +88,7 @@ create table if not exists purchase_type
 	id serial not null
 		constraint purchase_type_pkey
 			primary key,
-	title varchar(30)
+	title varchar(50)
 )
 ;
 
@@ -102,3 +102,23 @@ create table if not exists purchase_rule
 	sale_percent integer
 )
 ;
+
+insert into purchase_type(title) values ('Авиа');
+insert into purchase_type(title) values ('Ж/д');
+insert into purchase_type(title) values ('Такси');
+insert into purchase_type(title) values ('Страхование жизни ');
+insert into purchase_type(title) values ('Автострахование');
+insert into purchase_type(title) values ('Авто');
+insert into purchase_type(title) values ('Бронь отеля');
+insert into purchase_type(title) values ('Покупка электроники');
+insert into purchase_type(title) values ('Покупка канцтоваров');
+insert into purchase_type(title) values ('Покупка в сфере развлечений');
+insert into purchase_type(title) values ('Оплата онлайн школ и специальных учреждений');
+insert into purchase_type(title) values ('Кредит');
+insert into purchase_type(title) values ('Компьютер');
+insert into purchase_type(title) values ('Интернет услуги');
+insert into purchase_type(title) values ('Спорт');
+insert into purchase_type(title) values ('Бронь билетов на спортивные мероприятия');
+insert into purchase_type(title) values ('Аптеки');
+insert into purchase_type(title) values ('Товары для дома');
+insert into purchase_type(title) values ('Продктовые магазины');
