@@ -106,8 +106,7 @@ create table if not exists purchase_rule
 insert into purchase_type(title) values ('Авиа');
 insert into purchase_type(title) values ('Ж/д');
 insert into purchase_type(title) values ('Такси');
-insert into purchase_type(title) values ('Страхование жизни ');
-insert into purchase_type(title) values ('Автострахование');
+insert into purchase_type(title) values ('Страхование жизни');
 insert into purchase_type(title) values ('Авто');
 insert into purchase_type(title) values ('Бронь отеля');
 insert into purchase_type(title) values ('Покупка электроники');
